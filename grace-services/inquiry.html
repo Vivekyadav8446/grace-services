@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inquiry Form | Grace Services</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1>Grace Services</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="inquiry.html" class="active">Inquire</a></li>
+                    <li><a href="vacancies.html">Vacant Spaces</a></li>
+                    <li><a href="locations.html">Our Locations</a></li>
+                </ul>
+                <div class="mobile-menu">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <section class="inquiry-form">
+        <div class="container">
+            <h2>Service Inquiry</h2>
+            <form id="graceInquiryForm" action="php/submit-form.php" method="POST">
+                <div class="form-group">
+                    <label for="serviceType">Service Required</label>
+                    <select id="serviceType" name="serviceType" required>
+                        <option value="">Select a service</option>
+                        <option value="Food Court License">Food Court License</option>
+                        <option value="Hotel Space">Hotel Space</option>
+                        <option value="Rental Space">Rental Space</option>
+                        <option value="Advertisement">Advertisement</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" name="phone" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="location">Preferred Location</label>
+                    <select id="location" name="location" required>
+                        <option value="">Select location</option>
+                        <option value="Delhi">Delhi</option>
+                        <option value="Mumbai">Mumbai</option>
+                        <option value="Bangalore">Bangalore</option>
+                        <option value="Hyderabad">Hyderabad</option>
+                        <option value="Chennai">Chennai</option>
+                        <option value="Kolkata">Kolkata</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="message">Additional Details</label>
+                    <textarea id="message" name="message" rows="4"></textarea>
+                </div>
+                
+                <button type="submit" class="btn primary">Submit Inquiry</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <!-- Same footer as index.html -->
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+        document.getElementById('graceInquiryForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Form data collection
+            const formData = new FormData(this);
+            const serviceType = formData.get('serviceType');
+            
+            // Submit via AJAX
+            fetch(this.action, {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if(data.success) {
+                    // Redirect to WhatsApp with pre-filled message
+                    const whatsappMessage = `Hi, I have submitted an inquiry on your website for ${serviceType}. Please assist me further.`;
+                    const whatsappUrl = `https://wa.me/919876543210?text=${encodeURIComponent(whatsappMessage)}`;
+                    window.location.href = whatsappUrl;
+                } else {
+                    alert('There was an error submitting your form. Please try again.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('There was an error submitting your form. Please try again.');
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Locations | Grace Services</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1>Grace Services</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="inquiry.html">Inquire</a></li>
+                    <li><a href="vacancies.html">Vacant Spaces</a></li>
+                    <li><a href="locations.html" class="active">Our Locations</a></li>
+                </ul>
+                <div class="mobile-menu">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <section class="locations-map">
+        <div class="container">
+            <h2>Our Locations Across India</h2>
+            <div id="map"></div>
+            
+            <div class="locations-list">
+                <h3>All Properties</h3>
+                <div class="location-items" id="locationItems">
+                    <!-- Location items will be loaded via JavaScript -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <!-- Same footer as index.html -->
+    </footer>
+
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        // Initialize map
+        const map = L.map('map').setView([20.5937, 78.9629], 5);
+        
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+        
+        // Sample locations data
+        const locations = [
+            {
+                name: "Delhi Food Court",
+                lat: 28.6139,
+                lng: 77.2090,
+                type: "Food Court",
+                address: "Connaught Place, New Delhi"
+            },
+            {
+                name: "Mumbai Hotel Space",
+                lat: 19.0760,
+                lng: 72.8777,
+                type: "Hotel",
+                address: "Bandra West, Mumbai"
+            },
+            {
+                name: "Bangalore Commercial",
+                lat: 12.9716,
+                lng: 77.5946,
+                type: "Office Space",
+                address: "MG Road, Bangalore"
+            },
+            {
+                name: "Hyderabad Retail",
+                lat: 17.3850,
+                lng: 78.4867,
+                type: "Retail Space",
+                address: "Banjara Hills, Hyderabad"
+            }
+        ];
+        
+        // Add markers to map
+        locations.forEach(location => {
+            const marker = L.marker([location.lat, location.lng]).addTo(map);
+            marker.bindPopup(`
+                <h3>${location.name}</h3>
+                <p><strong>Type:</strong> ${location.type}</p>
+                <p><strong>Address:</strong> ${location.address}</p>
+            `);
+            
+            // Add to locations list
+            const locationItem = document.createElement('div');
+            locationItem.className = 'location-item';
+            locationItem.innerHTML = `
+                <h4>${location.name}</h4>
+                <p><i class="fas fa-map-marker-alt"></i> ${location.address}</p>
+                <p><i class="fas fa-tag"></i> ${location.type}</p>
+            `;
+            document.getElementById('locationItems').appendChild(locationItem);
+            
+            // Click event to show marker
+            locationItem.addEventListener('click', () => {
+                map.setView([location.lat, location.lng], 15);
+                marker.openPopup();
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vacant Spaces | Grace Services</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1>Grace Services</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="inquiry.html">Inquire</a></li>
+                    <li><a href="vacancies.html" class="active">Vacant Spaces</a></li>
+                    <li><a href="locations.html">Our Locations</a></li>
+                </ul>
+                <div class="mobile-menu">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <section class="vacancies">
+        <div class="container">
+            <h2>Available Commercial Spaces</h2>
+            
+            <div class="view-toggle">
+                <button id="cardViewBtn" class="active"><i class="fas fa-th-large"></i> Card View</button>
+                <button id="tableViewBtn"><i class="fas fa-table"></i> Table View</button>
+            </div>
+            
+            <div class="filter-options">
+                <select id="locationFilter">
+                    <option value="">All Locations</option>
+                    <option value="Delhi">Delhi</option>
+                    <option value="Mumbai">Mumbai</option>
+                    <option value="Bangalore">Bangalore</option>
+                    <option value="Hyderabad">Hyderabad</option>
+                </select>
+                
+                <select id="typeFilter">
+                    <option value="">All Types</option>
+                    <option value="Food Court">Food Court</option>
+                    <option value="Hotel">Hotel</option>
+                    <option value="Retail">Retail</option>
+                    <option value="Office">Office</option>
+                </select>
+            </div>
+            
+            <div id="cardView" class="vacancies-grid">
+                <!-- Cards will be loaded via JavaScript -->
+            </div>
+            
+            <div id="tableView" class="vacancies-table" style="display: none;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Property Name</th>
+                            <th>Location</th>
+                            <th>Type</th>
+                            <th>Area (sq. ft.)</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                        <!-- Table rows will be loaded via JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <!-- Same footer as index.html -->
+    </footer>
+
+    <script src="js/vacancies.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
